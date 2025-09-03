@@ -4,7 +4,7 @@ class SliderManager:
     def __init__(self, crt_simulation):
         self.crt = crt_simulation
         self.setup_interface_elements()
-    
+    #recibe objeto crt_simulation que contiene los atributos y métodos necesarios para la simulación del CRT.
     def setup_interface_elements(self):
         """Configura las posiciones de todos los elementos de la interfaz"""
         # Sliders
@@ -52,7 +52,7 @@ class SliderManager:
         self.manual_button = pygame.Rect(40, 450, 120, 40)
         self.lissajous_button = pygame.Rect(180, 450, 120, 40)
         self.reset_button = pygame.Rect(110, 500, 80, 30)
-    
+    # define los lugares y posiciones de cada slder y botón en la interfaz gráfica.
     def handle_slider_click(self, pos):
         """Maneja los clicks en los sliders"""
         sliders = [
@@ -71,7 +71,7 @@ class SliderManager:
                 slider['value'] = max(0, min(1, relative_x / slider['rect'].width))
                 self.update_values_from_sliders()
                 break
-    
+    # recibe la posicion del mouse y actualiza el valor del slider correspondiente si se hizo clic en él.
     def update_values_from_sliders(self):
         """Actualiza los valores físicos basado en los sliders"""
         self.crt.acceleration_voltage = self.acceleration_slider['value'] * self.crt.max_voltage
@@ -86,7 +86,7 @@ class SliderManager:
         if self.crt.current_mode.value == "Lissajous":
             self.crt.freq_vertical = self.freq_vertical_slider['value'] * 10.0
             self.crt.freq_horizontal = self.freq_horizontal_slider['value'] * 10.0
-    
+    # actualiza los valores físicos de la simulación basándose en las posiciones actuales de los sliders.
     def update_sliders_from_values(self):
         """Actualiza los sliders basado en los valores físicos"""
         self.acceleration_slider['value'] = self.crt.acceleration_voltage / self.crt.max_voltage
@@ -98,8 +98,9 @@ class SliderManager:
         
         self.freq_vertical_slider['value'] = self.crt.freq_vertical / 10.0
         self.freq_horizontal_slider['value'] = self.crt.freq_horizontal / 10.0
-    
+    # en caso contrario de poner quemados los valores físicos en los sliders como en el grid de la interfaz.
     def draw_slider(self, slider, enabled=True):
+
         """Dibuja un slider"""
         color = self.crt.GRAY if enabled else self.crt.LIGHT_GRAY
         
@@ -117,3 +118,4 @@ class SliderManager:
         label_color = self.crt.BLACK if enabled else self.crt.GRAY
         label_surface = self.crt.font_small.render(slider['label'], True, label_color)
         self.crt.screen.blit(label_surface, (slider['rect'].x, slider['rect'].y - 20))
+    # Dibuja un slider específico en la pantalla, deshabilitándolo visualmente si es necesario.
