@@ -12,9 +12,12 @@ class Visualization:
         pygame.draw.rect(self.crt.screen, self.crt.LIGHT_GRAY, lateral_rect)
         pygame.draw.rect(self.crt.screen, self.crt.BLACK, lateral_rect, 2)
         
-        # Placas verticales en vista lateral
-        plate_top = pygame.Rect(450, 120, 80, 8)
-        plate_bottom = pygame.Rect(450, 212, 80, 8)
+        # Placas verticales en vista lateral (centradas)
+        center_y = lateral_rect.centery  # Centro vertical del rectángulo
+        plate_width = 80
+        
+        plate_top = pygame.Rect(450, center_y - 30, plate_width, 8)
+        plate_bottom = pygame.Rect(450, center_y + 22, plate_width, 8)
         pygame.draw.rect(self.crt.screen, self.crt.GRAY, plate_top)
         pygame.draw.rect(self.crt.screen, self.crt.GRAY, plate_bottom)
         
@@ -33,6 +36,19 @@ class Visualization:
         label = self.crt.font_medium.render("Vista Lateral", True, self.crt.BLACK)
         self.crt.screen.blit(label, (lateral_rect.x + 10, lateral_rect.y - 25))
         
+        # Ejes Y y Z para vista lateral con líneas
+        # Eje Y (vertical)
+        pygame.draw.line(self.crt.screen, self.crt.BLACK, (lateral_rect.x + 15, lateral_rect.bottom - 15), (lateral_rect.x + 15, lateral_rect.bottom - 40), 2)
+        pygame.draw.polygon(self.crt.screen, self.crt.BLACK, [(lateral_rect.x + 15, lateral_rect.bottom - 40), (lateral_rect.x + 12, lateral_rect.bottom - 35), (lateral_rect.x + 18, lateral_rect.bottom - 35)])
+        y_axis_label = self.crt.font_small.render("Y", True, self.crt.BLACK)
+        self.crt.screen.blit(y_axis_label, (lateral_rect.x + 5, lateral_rect.bottom - 45))
+        
+        # Eje Z (horizontal)
+        pygame.draw.line(self.crt.screen, self.crt.BLACK, (lateral_rect.x + 15, lateral_rect.bottom - 15), (lateral_rect.x + 40, lateral_rect.bottom - 15), 2)
+        pygame.draw.polygon(self.crt.screen, self.crt.BLACK, [(lateral_rect.x + 40, lateral_rect.bottom - 15), (lateral_rect.x + 35, lateral_rect.bottom - 12), (lateral_rect.x + 35, lateral_rect.bottom - 18)])
+        z_axis_label = self.crt.font_small.render("Z", True, self.crt.BLACK)
+        self.crt.screen.blit(z_axis_label, (lateral_rect.x + 42, lateral_rect.bottom - 20))
+        
         # Vista superior
         superior_rect = pygame.Rect(800, 100, 300, 150)
         pygame.draw.rect(self.crt.screen, self.crt.LIGHT_GRAY, superior_rect)
@@ -40,12 +56,12 @@ class Visualization:
         
         # Placas horizontales en vista superior (centradas)
         center_y = superior_rect.centery  # Centro vertical del rectángulo
-        plate_height = 80
+        plate_width = 80
         
-        plate_left = pygame.Rect(850, center_y - plate_height // 2, 8, plate_height)
-        plate_right = pygame.Rect(1042, center_y - plate_height // 2, 8, plate_height)
-        pygame.draw.rect(self.crt.screen, self.crt.GRAY, plate_left)
-        pygame.draw.rect(self.crt.screen, self.crt.GRAY, plate_right)
+        plate_top = pygame.Rect(850, center_y - 30, plate_width, 8)
+        plate_bottom = pygame.Rect(850, center_y + 22, plate_width, 8)
+        pygame.draw.rect(self.crt.screen, self.crt.GRAY, plate_top)
+        pygame.draw.rect(self.crt.screen, self.crt.GRAY, plate_bottom)
         
         # Trayectoria del electrón en vista superior
         if self.crt.current_mode.value == "Manual":
@@ -58,9 +74,22 @@ class Visualization:
         pygame.draw.line(self.crt.screen, self.crt.GREEN, start_pos, end_pos, 3)
         pygame.draw.circle(self.crt.screen, self.crt.YELLOW, end_pos, 4)
         
-        # Label
+        # Label para vista superior
         label = self.crt.font_medium.render("Vista Superior", True, self.crt.BLACK)
         self.crt.screen.blit(label, (superior_rect.x + 10, superior_rect.y - 25))
+        
+        # Ejes X y Z para vista superior con líneas
+        # Eje X (horizontal)
+        pygame.draw.line(self.crt.screen, self.crt.BLACK, (superior_rect.x + 15, superior_rect.bottom - 15), (superior_rect.x + 40, superior_rect.bottom - 15), 2)
+        pygame.draw.polygon(self.crt.screen, self.crt.BLACK, [(superior_rect.x + 40, superior_rect.bottom - 15), (superior_rect.x + 35, superior_rect.bottom - 12), (superior_rect.x + 35, superior_rect.bottom - 18)])
+        x_axis_label = self.crt.font_small.render("X", True, self.crt.BLACK)
+        self.crt.screen.blit(x_axis_label, (superior_rect.x + 42, superior_rect.bottom - 20))
+        
+        # Eje Z (vertical)
+        pygame.draw.line(self.crt.screen, self.crt.BLACK, (superior_rect.x + 15, superior_rect.bottom - 15), (superior_rect.x + 15, superior_rect.bottom - 40), 2)
+        pygame.draw.polygon(self.crt.screen, self.crt.BLACK, [(superior_rect.x + 15, superior_rect.bottom - 40), (superior_rect.x + 12, superior_rect.bottom - 35), (superior_rect.x + 18, superior_rect.bottom - 35)])
+        z_axis_label = self.crt.font_small.render("Z", True, self.crt.BLACK)
+        self.crt.screen.blit(z_axis_label, (superior_rect.x + 5, superior_rect.bottom - 45))
     
     def draw_crt_screen(self):
         """Dibuja la pantalla del CRT"""
