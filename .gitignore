@@ -1,0 +1,5 @@
+// Archivos de caché de Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
