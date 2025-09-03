@@ -218,7 +218,40 @@ class CRTSimulation:
         if self.current_mode == Mode.LISSAJOUS:
             self.freq_vertical = self.freq_vertical_slider['value'] * 10.0
             self.freq_horizontal = self.freq_horizontal_slider['value'] * 10.0
-    
+    # =======================
+    # COMENTARIOS DE FUNCIONES CLAVE
+    # =======================
+    # - __init__: Inicializa la simulación, variables físicas, interfaz y estado.
+    # - setup_interface_elements: Define posiciones y tamaños de sliders, botones y grid.
+    # - handle_events: Gestiona eventos de pygame (clics, arrastres, salir).
+    # - handle_click / handle_drag: Detectan interacción con sliders, botones y grid.
+    # - update_values_from_sliders: Actualiza variables físicas según sliders.
+    # - update_sliders_from_values: Sincroniza sliders con valores físicos.
+    # - calculate_electron_position: Calcula la posición del electrón en pantalla según modo.
+    # - update_simulation: Avanza el tiempo, calcula y almacena la trayectoria del electrón.
+    # - draw_slider: Dibuja un slider con su estado.
+    # - draw_crt_views: Dibuja vistas lateral y superior del CRT y trayectoria del electrón.
+    # - draw_crt_screen: Dibuja la pantalla principal del CRT y la traza del electrón.
+    # - draw_grid: Dibuja el grid de proporciones para seleccionar figuras de Lissajous.
+    # - draw_control_panel: Dibuja el panel de control con sliders, botones y estado.
+    # - run: Bucle principal de la simulación.
+
+    # =======================
+    # CUADRO DE TEXTO: LÓGICA DEL CÓDIGO
+    # =======================
+    # El código implementa una simulación interactiva de un Tubo de Rayos Catódicos (CRT) usando pygame.
+    # 
+    # 1. Interfaz gráfica: Se compone de un panel de control (sliders y botones), vistas esquemáticas del CRT (lateral y superior), la pantalla principal del CRT y un grid para seleccionar proporciones de figuras de Lissajous.
+    # 
+    # 2. Modos de operación: 
+    #    - Manual: El usuario ajusta los voltajes de deflexión vertical y horizontal para mover el punto en la pantalla.
+    #    - Lissajous: El usuario ajusta frecuencias y fases para generar figuras de Lissajous automáticamente.
+    # 
+    # 3. Simulación física: Se calcula la posición del electrón en la pantalla según los voltajes/frecuencias, y se dibuja su traza con persistencia configurable.
+    # 
+    # 4. Interacción: El usuario puede cambiar parámetros con sliders, alternar modos, resetear la simulación y seleccionar proporciones de frecuencias desde el grid.
+    # 
+    # 5. Actualización y renderizado: En cada frame, se procesan eventos, se actualiza la simulación y se dibuja toda la interfaz.
     def update_sliders_from_values(self):
         """Actualiza los sliders basado en los valores físicos"""
         self.acceleration_slider['value'] = self.acceleration_voltage / self.max_voltage
