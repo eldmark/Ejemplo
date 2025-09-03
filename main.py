@@ -39,7 +39,7 @@ class CRTSimulation:
         # Modo actual
         self.current_mode = Mode.MANUAL
         
-        # Variables físicas del CRT
+        # Variables físicas del CRT (valores predeterminados)
         self.acceleration_voltage = 1000.0  # V
         self.vertical_voltage = 0.0  # V
         self.horizontal_voltage = 0.0  # V
@@ -138,9 +138,26 @@ class CRTSimulation:
                     self.electron_points = []  # Limpiar pantalla
     
     def reset_simulation(self):
-        """Reinicia la simulación"""
+        """Reinicia la simulación con valores predeterminados"""
+        # Limpiar pantalla
         self.electron_points = []
         self.time = 0.0
+        
+        # Restaurar valores predeterminados
+        self.acceleration_voltage = 1000.0
+        self.vertical_voltage = 0.0
+        self.horizontal_voltage = 0.0
+        self.persistence_time = 1.0
+        self.freq_vertical = 1.0
+        self.freq_horizontal = 1.0
+        self.phase_vertical = 0.0
+        self.phase_horizontal = 0.0
+        
+        # Restaurar ratio seleccionado
+        self.selected_ratio_index = 0
+        
+        # Actualizar sliders para reflejar los valores restaurados
+        self.slider_manager.update_sliders_from_values()
     
     def update_simulation(self, dt):
         """Actualiza la simulación"""

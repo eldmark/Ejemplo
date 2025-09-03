@@ -38,9 +38,12 @@ class Visualization:
         pygame.draw.rect(self.crt.screen, self.crt.LIGHT_GRAY, superior_rect)
         pygame.draw.rect(self.crt.screen, self.crt.BLACK, superior_rect, 2)
         
-        # Placas horizontales en vista superior
-        plate_left = pygame.Rect(850, 160, 8, 80)
-        plate_right = pygame.Rect(992, 160, 8, 80)
+        # Placas horizontales en vista superior (centradas)
+        center_y = superior_rect.centery  # Centro vertical del rectángulo
+        plate_height = 80
+        
+        plate_left = pygame.Rect(850, center_y - plate_height // 2, 8, plate_height)
+        plate_right = pygame.Rect(1042, center_y - plate_height // 2, 8, plate_height)
         pygame.draw.rect(self.crt.screen, self.crt.GRAY, plate_left)
         pygame.draw.rect(self.crt.screen, self.crt.GRAY, plate_right)
         
@@ -50,8 +53,8 @@ class Visualization:
         else:
             x_offset = 20 * math.sin(2 * math.pi * self.crt.freq_horizontal * self.crt.time)
         
-        start_pos = (820, 175)
-        end_pos = (1080, 175 + x_offset)
+        start_pos = (820, center_y)
+        end_pos = (1080, center_y + x_offset)
         pygame.draw.line(self.crt.screen, self.crt.GREEN, start_pos, end_pos, 3)
         pygame.draw.circle(self.crt.screen, self.crt.YELLOW, end_pos, 4)
         

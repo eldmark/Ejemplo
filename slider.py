@@ -32,7 +32,7 @@ class SliderManager:
         
         self.persistence_slider = {
             'rect': pygame.Rect(slider_x, 270, slider_width, slider_height),
-            'value': self.crt.persistence_time / 5.0,
+            'value': (self.crt.persistence_time - 0.1) / 9.9,  # Mapear de 0.1-10 a 0-1
             'label': 'Persistencia'
         }
         
@@ -80,7 +80,8 @@ class SliderManager:
             self.crt.vertical_voltage = (self.vertical_slider['value'] - 0.5) * 2 * self.crt.max_deflection_voltage
             self.crt.horizontal_voltage = (self.horizontal_slider['value'] - 0.5) * 2 * self.crt.max_deflection_voltage
         
-        self.crt.persistence_time = self.persistence_slider['value'] * 5.0
+        # Persistencia de 0.1 a 10 segundos
+        self.crt.persistence_time = 0.1 + (self.persistence_slider['value'] * 9.9)
         
         if self.crt.current_mode.value == "Lissajous":
             self.crt.freq_vertical = self.freq_vertical_slider['value'] * 10.0
@@ -91,7 +92,10 @@ class SliderManager:
         self.acceleration_slider['value'] = self.crt.acceleration_voltage / self.crt.max_voltage
         self.vertical_slider['value'] = (self.crt.vertical_voltage + self.crt.max_deflection_voltage) / (2 * self.crt.max_deflection_voltage)
         self.horizontal_slider['value'] = (self.crt.horizontal_voltage + self.crt.max_deflection_voltage) / (2 * self.crt.max_deflection_voltage)
-        self.persistence_slider['value'] = self.crt.persistence_time / 5.0
+        
+        # Mapear persistencia de 0.1-10 a 0-1
+        self.persistence_slider['value'] = (self.crt.persistence_time - 0.1) / 9.9
+        
         self.freq_vertical_slider['value'] = self.crt.freq_vertical / 10.0
         self.freq_horizontal_slider['value'] = self.crt.freq_horizontal / 10.0
     
